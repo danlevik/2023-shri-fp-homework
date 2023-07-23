@@ -27,6 +27,7 @@ import {
   omit,
 } from "ramda";
 
+// Цвета
 const isRed = equals("red");
 const isGreen = equals("green");
 const isBlue = equals("blue");
@@ -36,11 +37,13 @@ const isWhite = equals("white");
 const isNotRed = complement(isRed);
 const isNotWhite = complement(isWhite);
 
+// Фигуры
 const getStar = prop("star");
 const getTriangle = prop("triangle");
 const getSquare = prop("square");
 const getCircle = prop("circle");
 
+// Цвет + Фигура
 const isRedStar = compose(isRed, getStar);
 const isGreenStar = compose(isGreen, getStar);
 const isOrangeStar = compose(isOrange, getStar);
@@ -59,6 +62,7 @@ const isBlueCircle = compose(isBlue, getCircle);
 const isGreenCircle = compose(isGreen, getCircle);
 const isOrangeCircle = compose(isOrange, getCircle);
 
+// Фигура:Цвет => Цвет:Количество
 const getColorCounts = compose(countBy(identity), values);
 const getColorCountsExceptWhite = compose(omit(["white"]), getColorCounts);
 
@@ -68,7 +72,6 @@ const isTwoGreen = ({ green }) => green === 2;
 const isOneOrMoreRed = ({ red }) => red >= 1;
 
 const isTriangleEqualsSquare = ({ square, triangle }) => square === triangle;
-
 const isAnyGreaterThenThree = any(gte(__, 3));
 
 // 1. Красная звезда, зеленый квадрат, все остальные белые.
@@ -126,4 +129,4 @@ export const validateFieldN9 = allPass([
 ]);
 
 // 10. Треугольник и квадрат одного цвета (не белого), остальные – любого цвета
-export const validateFieldN10 = allPass([isTriangleEqualsSquare]);
+export const validateFieldN10 = isTriangleEqualsSquare;
